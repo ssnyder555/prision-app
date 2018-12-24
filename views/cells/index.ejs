@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Cells</title>
+
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <ul class="nav justify-content-end">
+    <li class="nav-item">
+      <a class="nav-link active" href="/">Dashboard</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/prisoners">Prisoners</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link disabled" href="/auth/logout">Login / Logout</a>
+    </li>
+  </ul>
+  <div class="container">
+    <h1>Cells: This is your index page</h1> </br> </br>
+
+    <% for ( let i = 0; i < cells.length; i++ ) { %>
+
+    <h3>
+      <%= cells[i].name %> Cell Block
+    </h3></br>
+    <h5><a href='/cells/<%=cells[i].id%>'>VIEW CELL BLOCK</a></h5> </br> </br> </br> </br> </br>
+
+    <% } %>
+  </div>
+</body>
+
+</html>

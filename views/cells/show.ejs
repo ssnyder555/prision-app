@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Cell</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <ul class="nav justify-content-end">
+    <li class="nav-item">
+      <a class="nav-link" href="/cells">Cells Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link disabled" href="/auth/logout">Login / Logout</a>
+    </li>
+  </ul>
+  <div class="container">
+    <h1>
+      <%= cell.name %> Crime Cell</h1>
+    </br>
+    <h3> Capacity:
+      <%=cell.capacity - cell.prisoner.length%>
+    </h3>
+    <h4>Prisoners</h4> </br>
+    <%  for ( let i = 0; i < cell.prisoner.length; i++ ) { %>
+    <a href="/prisoners/<%=cell.prisoner[i].id%>">
+      <%= cell.prisoner[i].name %></a> </br>
+    <img src="<%=cell.prisoner[i].picture%>"> </br>
+    <%    } %>
+
+    </br>
+    </br>
+
+    <!-- <form action="/cells/<%=cell.id%>?_method=DELETE" method="post">
+    <input type="submit" value="Delete Cell">
+  </form> -->
+  </div>
+
+</body>
+
+</html>

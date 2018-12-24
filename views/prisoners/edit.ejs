@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Edit Prisoner</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <ul class="nav justify-content-end">
+    <li class="nav-item">
+      <a class="nav-link active" href="/">Dashboard</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/cells">Cell Blocks</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link disabled" href="/auth/logout">Login / Logout</a>
+    </li>
+  </ul>
+  <div class="container">
+    <h1>Edit Prisoner Information</h1>
+    <form action="/prisoners/<%=prisoner.id%>?_method=PUT" method="POST">
+      Name: <input type="text" name="name" value="<%=prisoner.name%>"> </br>
+      Age: <input type="text" name="age" value="<%=prisoner.age%>"> </br>
+      Crime: <input type="text" name="crime" value="<%=prisoner.crime%>"> </br>
+      Race: <input type="text" name="race" value="<%=prisoner.race%>"> </br>
+      Picture: <input type="text" name="picture" value="<%=prisoner.picture%>"> </br>
+      DurationOfStay: <input type="text" name="durationOfStay" value="<%=prisoner.durationOfStay%>"> </br>
+      Behavior: <input type="text" name="behavior" value="<%=prisoner.behavior%>"> </br>
+      CellNumber: <input type="text" name="cellNumber" value="<%=prisoner.cellNumber%>"> </br>
+
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+</body>
+
+</html>

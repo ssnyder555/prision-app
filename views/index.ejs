@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  <title>Dashboard</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+  <ul class="nav justify-content-end fixed-top">
+    <li class="nav-item">
+      <a class="nav-link" href="/cells">Cell Blocks</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/prisoners">Prisoners</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link disabled" href="/auth/logout">Login / Logout</a>
+    </li>
+  </ul>
+  <div class="container">
+    <h1 class='page-header'>Prison App: This is the Home Page</h1> </br> </br> </br>
+
+
+    <% let raceArray = []; %>
+    <%    for( let i = 0; i < prisoners.length; i++ ) { %>
+
+    <%  raceArray.push(prisoners[i].race) %>
+
+    <%    } %>
+
+    <%  const black = []; %>
+    <%  const white = []; %>
+    <%  const other = []; %>
+
+    <%   for ( let i = 0; i < raceArray.length; i++ ) { %>
+    <%   if (raceArray[i] === 'White') { %>
+    <%      white.push(raceArray[i]) %>
+    <%     } %>
+    <%   if (raceArray[i] === 'Black') { %>
+    <%     black.push(raceArray[i]) %>
+    <%    } %>
+    <%   if (raceArray[i] === 'Other') { %>
+    <%     other.push(raceArray[i]) %>
+    <%   } %>
+    <%  } %>
+
+
+
+
+    <%  let minorCapacity = 0; %>
+    <%  let misdemeanorCapacity = 0; %>
+    <%  let felonyCapacity = 0; %>
+
+    <%    for( let i = 0; i < cells.length; i++ ) { %>
+    <%    if (cells[i].name === 'Minor') { %>
+    <%          minorCapacity = cells[i].capacity - (cells[i].capacity - cells[i].prisoner.length);  %>
+    <%      } %>
+    <%      if (cells[i].name === 'Misdemeanor') { %>
+    <%        misdemeanorCapacity = cells[i].capacity - (cells[i].capacity - cells[i].prisoner.length); %>
+    <%      } %>
+    <%      if (cells[i].name === 'Felony') { %>
+    <%        felonyCapacity = cells[i].capacity - (cells[i].capacity - cells[i].prisoner.length); %>
+    <%      } %>
+
+    <%    } %>
+
+    <h2>Prisoner Stats</h2>
+
+    <div class="col-sm-10">
+      <canvas id="doughnutChart"></canvas>
+    </div>
+
+    <!-- <canvas id="myChart" width="40" height="40"></canvas> -->
+    <script>
+      //doughnut
+      var ctxD = document.getElementById("doughnutChart").getContext('2d');
+      var myLineChart = new Chart(ctxD, {
+        type: 'doughnut',
+        data: {
+          labels: ["Black", "White", "Other"],
+          datasets: [{
+            data: [<%=black.length%>, <%=white.length%>, <%=other.length%>],
+            backgroundColor: ["#F7464A", "#46BFBD", "#FDB45C"],
+            hoverBackgroundColor: ["#FF5A5E", "#5AD3D1", "#FFC870"]
+          }]
+        },
+        options: {
+          responsive: true
+        }
+      });
+    </script>
+
+    <h2>Cell Stats</h2>
+
+    <div class="container">
+      <!-- Content here -->
+
+      <div class="col-sm-9">
+        <canvas id="myChart" width="400px" height="400px"></canvas>
+      </div>
+    </div>
+    <!-- <canvas id="myChart" width="40" height="40"></canvas> -->
+    <script>
+      const ctx = document.getElementById("myChart").getContext("2d");
+      var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ["Minor", "Misdemeanor", "Felony"],
+          datasets: [{
+            label: '# of Prisoners',
+            data: [<%=minorCapacity%>, <%=misdemeanorCapacity%>, <%=felonyCapacity%>],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 2
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
+      });
+    </script>
+  </div>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
